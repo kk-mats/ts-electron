@@ -1,0 +1,12 @@
+{
+	"extends": "./tsconfig.prod.json",
+	"compilerOptions": {
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"sourceMap": true,
+		"strict": true,
+		"removeComments": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+	}
+}

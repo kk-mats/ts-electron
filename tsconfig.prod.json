@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"lib": ["dom", "es2019"],
+		"jsx": "react",
+		"baseUrl": "./src"
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"webpack.config.*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}
