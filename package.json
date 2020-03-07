@@ -1,0 +1,45 @@
+{
+	"name": "ts-electron",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/kk-mats/ts-electron.git",
+	"author": "kk-mats <k.mats.kk@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"electron": "^8.0.2",
+		"react": "^16.13.0",
+		"react-dom": "^16.13.0"
+	},
+	"devDependencies": {
+		"@types/html-webpack-plugin": "^3.2.2",
+		"@types/react": "^16.9.23",
+		"@types/react-dom": "^16.9.5",
+		"@types/webpack": "^4.41.7",
+		"@typescript-eslint/eslint-plugin": "^2.22.0",
+		"@typescript-eslint/parser": "^2.22.0",
+		"@typescript-eslint/typescript-estree": "^2.22.0",
+		"eslint": "^6.8.0",
+		"eslint-config-airbnb": "^18.0.1",
+		"eslint-config-prettier": "^6.10.0",
+		"eslint-import-resolver-typescript": "^2.0.0",
+		"eslint-import-resolver-webpack": "^0.12.1",
+		"eslint-loader": "^3.0.3",
+		"eslint-plugin-import": "^2.20.1",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-prettier": "^3.1.2",
+		"eslint-plugin-react": "^7.18.3",
+		"eslint-plugin-react-hooks": "^2.5.0",
+		"html-webpack-plugin": "^3.2.0",
+		"prettier": "^1.19.1",
+		"ts-loader": "^6.2.1",
+		"ts-node": "^8.6.2",
+		"tsconfig-paths-webpack-plugin": "^3.2.0",
+		"typescript": "^3.8.3",
+		"webpack": "^4.41.6",
+		"webpack-cli": "^3.3.11"
+	},
+	"scripts": {
+		"start": "yarn run build && electron dist/main.js",
+		"build": "webpack --config webpack.config.dev.ts"
+	}
+}
