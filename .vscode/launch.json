@@ -1,0 +1,42 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "main",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceRoot}/dist/main.js",
+			"preLaunchTask": "build",
+			"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+			"runtimeArgs": [
+				"--enable-logging"
+			],
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceRoot}/dist/**/*.js"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"console": "integratedTerminal",
+		},
+		{
+			"name": "renderer",
+			"type": "chrome",
+			"request": "launch",
+			"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+			"runtimeArgs": [
+				"${workspaceRoot}/dist",
+				"--enable-logging",
+				"--remote-debugging-port=9222"
+			],
+			"webRoot": "${workspaceRoot}/dist",
+			"sourceMaps": true,
+			"internalConsoleOptions": "openOnSessionStart"
+		}
+	]
+}
