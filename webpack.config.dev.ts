@@ -8,13 +8,11 @@ const common: webpack.Configuration = {
 };
 
 const dist = path.resolve(__dirname, "dist");
-const resolve = {
-	plugins: [
-		new TsconfigPathsPlugin({
-			configFile: "tsconfig.json"
-		})
-	]
-};
+const plugins = [
+	new TsconfigPathsPlugin({
+		configFile: "tsconfig.json"
+	})
+];
 
 const main: webpack.Configuration = {
 	...common,
@@ -25,7 +23,10 @@ const main: webpack.Configuration = {
 		path: dist,
 		filename: "main.js"
 	},
-	resolve,
+	resolve: {
+		plugins,
+		extensions: [".js", ".ts"]
+	},
 	module: {
 		rules: [
 			{
@@ -52,7 +53,10 @@ const renderer: webpack.Configuration = {
 		path: dist,
 		filename: "renderer.js"
 	},
-	resolve,
+	resolve: {
+		plugins,
+		extensions: [".js", ".jsx", ".ts", ".tsx"]
+	},
 	module: {
 		rules: [
 			{
