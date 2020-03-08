@@ -8,17 +8,21 @@ const common: webpack.Configuration = {
 };
 
 const dist = path.resolve(__dirname, "dist");
+const src = path.resolve(__dirname, "src");
+const main = path.resolve(src, "main");
+const renderer = path.resolve(src, "renderer");
+
 const plugins = [
 	new TsconfigPathsPlugin({
 		configFile: "tsconfig.json"
 	})
 ];
 
-const main: webpack.Configuration = {
+const mainConfig: webpack.Configuration = {
 	...common,
 	target: "electron-main",
 	devtool: "inline-source-map",
-	entry: path.resolve(__dirname, "src", "main", "index.ts"),
+	entry: path.resolve(main, "index.ts"),
 	output: {
 		path: dist,
 		filename: "main.js"
@@ -33,22 +37,22 @@ const main: webpack.Configuration = {
 				enforce: "pre",
 				test: /\.ts$/,
 				loader: "eslint-loader",
-				include: path.resolve(__dirname, "src", "main")
+				include: main
 			},
 			{
 				test: /\.tsx?$/,
 				loader: "ts-loader",
-				include: path.resolve(__dirname, "src", "main")
+				include: main
 			}
 		]
 	}
 };
 
-const renderer: webpack.Configuration = {
+const rendererConfig: webpack.Configuration = {
 	...common,
 	target: "electron-renderer",
 	devtool: "inline-source-map",
-	entry: path.resolve(__dirname, "src", "renderer", "index.tsx"),
+	entry: path.resolve(renderer, "index.tsx"),
 	output: {
 		path: dist,
 		filename: "renderer.js"
@@ -63,21 +67,21 @@ const renderer: webpack.Configuration = {
 				enforce: "pre",
 				test: /\.tsx?$/,
 				loader: "eslint-loader",
-				include: path.resolve(__dirname, "src", "renderer")
+				include: renderer
 			},
 			{
 				test: /\.tsx?$/,
 				loader: "ts-loader",
-				include: path.resolve(__dirname, "src", "renderer")
+				include: renderer
 			}
 		]
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, "src", "index.html"),
+			template: path.resolve(src, "index.html"),
 			filename: path.resolve(dist, "index.html")
 		})
 	]
 };
 
-export default [main, renderer];
+export default [mainConfig, rendererConfig];
