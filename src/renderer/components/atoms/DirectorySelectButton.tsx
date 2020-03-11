@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Button } from "@material-ui/core";
 
-import { remote } from "electron";
-
 type Props = {
 	onClick: (path?: string) => void;
 	children: React.ReactNode;
@@ -11,10 +9,12 @@ type Props = {
 const SharedDirectory: React.FunctionComponent<Props> = (props: Props) => {
 	const { onClick, children } = props;
 
-	const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = event => {
-		const paths = remote.dialog.showOpenDialogSync({
-			properties: ["openDirectory"]
-		});
+	const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = async event => {
+		const paths = (
+			await window.dialog.showOpenDialog({
+				properties: ["openDirectory"]
+			})
+		).filePaths;
 
 		if (paths) {
 			onClick(paths[0]);
