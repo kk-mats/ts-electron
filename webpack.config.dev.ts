@@ -10,6 +10,7 @@ const common: webpack.Configuration = {
 const dist = path.resolve(__dirname, "dist");
 const src = path.resolve(__dirname, "src");
 const main = path.resolve(src, "main");
+const preload = path.resolve(src, "preload.ts");
 const renderer = path.resolve(src, "renderer");
 
 const plugins = [
@@ -40,9 +41,39 @@ const mainConfig: webpack.Configuration = {
 				include: main
 			},
 			{
-				test: /\.tsx?$/,
+				test: /\.ts$/,
 				loader: "ts-loader",
 				include: main
+			}
+		]
+	}
+};
+
+const preloadConfig: webpack.Configuration = {
+	...common,
+	target: "electron-preload",
+	devtool: "inline-source-map",
+	entry: preload,
+	output: {
+		path: dist,
+		filename: "preload.js"
+	},
+	resolve: {
+		plugins,
+		extensions: [".js", ".ts"]
+	},
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.ts$/,
+				loader: "eslint-loader",
+				include: preload
+			},
+			{
+				test: /\.ts$/,
+				loader: "ts-loader",
+				include: preload
 			}
 		]
 	}
@@ -86,5 +117,6 @@ const rendererConfig: webpack.Configuration = {
 
 export default [
 	{ name: "main", ...mainConfig },
+	{ name: "preload", ...preloadConfig },
 	{ name: "renderer", ...rendererConfig }
 ];
