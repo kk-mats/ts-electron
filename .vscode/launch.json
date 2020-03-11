@@ -12,7 +12,6 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceRoot}/dist/main.js",
-			"preLaunchTask": "build",
 			"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
 			"runtimeArgs": [
 				"--enable-logging"
