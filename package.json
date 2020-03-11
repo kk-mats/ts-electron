@@ -1,7 +1,7 @@
 {
 	"name": "ts-electron",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "dist/main.js",
 	"repository": "https://github.com/kk-mats/ts-electron.git",
 	"author": "kk-mats <k.mats.kk@gmail.com>",
 	"license": "MIT",
@@ -43,7 +43,10 @@
 		"webpack-cli": "^3.3.11"
 	},
 	"scripts": {
-		"start": "yarn run build && electron dist/main.js",
-		"build": "webpack --config webpack.config.dev.ts"
+		"start": "electron dist/main.js",
+		"start:rebuild": "yarn run build && yarn run start",
+		"build": "webpack --config webpack.config.dev.ts",
+		"build:main": "webpack --config webpack.config.dev.ts --config-name main",
+		"build:renderer": "webpack --config webpack.config.dev.ts --config-name renderer"
 	}
 }

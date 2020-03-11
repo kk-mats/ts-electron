@@ -84,4 +84,7 @@ const rendererConfig: webpack.Configuration = {
 	]
 };
 
-export default [mainConfig, rendererConfig];
+export default [
+	{ name: "main", ...mainConfig },
+	{ name: "renderer", ...rendererConfig }
+];
