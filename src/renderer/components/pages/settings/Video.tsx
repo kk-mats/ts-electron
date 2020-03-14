@@ -20,6 +20,7 @@ const Component: React.FunctionComponent<ComponentProps> = (
 			<List>
 				<DirectorySelectItem
 					label="FFmpeg"
+					dialogOptions={{ properties: ["openFile"] }}
 					path={FFmpegPath}
 					setPath={setFFmpegPath}
 				/>

@@ -5,20 +5,23 @@ import {
 	ListItemSecondaryAction
 } from "@material-ui/core";
 
-import DirectorySelectButton from "renderer/components/atoms/DirectorySelectButton";
+import * as Electron from "electron";
+
+import ShowOpenDialogButton from "renderer/components/atoms/ShowOpenDialogButton";
 
 type Props = {
 	label: string;
+	dialogOptions: Electron.OpenDialogSyncOptions;
 	path: string;
 	setPath: (path: string) => void;
 };
 
 const DirectorySelectItem: React.FunctionComponent<Props> = (props: Props) => {
-	const { label, path, setPath } = props;
+	const { label, dialogOptions, path, setPath } = props;
 
-	const onClick = (p?: string): void => {
-		if (p) {
-			setPath(p);
+	const onClick = (value: Electron.OpenDialogReturnValue): void => {
+		if (value.filePaths[0]) {
+			setPath(value.filePaths[0]);
 		}
 	};
 
@@ -30,9 +33,9 @@ const DirectorySelectItem: React.FunctionComponent<Props> = (props: Props) => {
 				secondaryTypographyProps={{ noWrap: true }}
 			/>
 			<ListItemSecondaryAction>
-				<DirectorySelectButton onClick={onClick}>
+				<ShowOpenDialogButton options={dialogOptions} onClick={onClick}>
 					Browse
-				</DirectorySelectButton>
+				</ShowOpenDialogButton>
 			</ListItemSecondaryAction>
 		</ListItem>
 	);

@@ -20,6 +20,7 @@ const Component: React.FunctionComponent<ComponentProps> = (
 			<List>
 				<DirectorySelectItem
 					label="Shared directory"
+					dialogOptions={{ properties: ["openDirectory"] }}
 					path={sharedDirectoryPath}
 					setPath={setSharedDirectoryPath}
 				/>
