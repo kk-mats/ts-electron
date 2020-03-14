@@ -16,15 +16,24 @@ const createWindow = (): void => {
 
 	win.loadFile(path.resolve("dist", "index.html"));
 
-	Electron.ipcMain.handle(
-		channels.showOpenDialog,
-		async (
-			event,
-			arg: Electron.OpenDialogOptions
-		): Promise<Electron.OpenDialogReturnValue> => {
-			return Electron.dialog.showOpenDialog(win, arg);
+	const handlers: {
+		channel: string;
+		listener: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any;
+	}[] = [
+		{
+			channel: channels.showOpenDialog,
+			listener: async (
+				event: Electron.IpcMainInvokeEvent,
+				args: Electron.OpenDialogOptions
+			): Promise<Electron.OpenDialogReturnValue> => {
+				return Electron.dialog.showOpenDialog(win, args);
+			}
 		}
-	);
+	];
+
+	handlers.map(handler => {
+		return Electron.ipcMain.handle(handler.channel, handler.listener);
+	});
 };
 
 Electron.app.on("ready", createWindow);
