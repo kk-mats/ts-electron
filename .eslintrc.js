@@ -25,7 +25,8 @@ module.exports = {
 				tabWidth: 4,
 				useTabs: true
 			}
-		]
+		],
+		"react/jsx-props-no-spreading": "off"
 	},
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
