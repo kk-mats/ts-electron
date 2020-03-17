@@ -2,6 +2,9 @@ import * as path from "path";
 import * as Electron from "electron";
 
 import * as channels from "common/channels";
+import * as configTypes from "common/types/config";
+
+import ConfigRepository from "main/infrastructure/repositories/ConfigRepository";
 
 const createWindow = (): void => {
 	const win = new Electron.BrowserWindow({
@@ -27,6 +30,33 @@ const createWindow = (): void => {
 				args: Electron.OpenDialogOptions
 			): Promise<Electron.OpenDialogReturnValue> => {
 				return Electron.dialog.showOpenDialog(win, args);
+			}
+		},
+		{
+			channel: channels.fetchConfigAll,
+			listener: (
+				event: Electron.IpcMainInvokeEvent
+			): configTypes.Schema => {
+				return ConfigRepository.loadAll();
+			}
+		},
+		{
+			channel: channels.fetchConfig,
+			listener: <K extends configTypes.SchemaKeys>(
+				event: Electron.IpcMainInvokeEvent,
+				key: K
+			): configTypes.Schema[K] => {
+				return ConfigRepository.load<K>(key);
+			}
+		},
+		{
+			channel: channels.updateConfig,
+			listener: async <K extends configTypes.SchemaKeys>(
+				event: Electron.IpcMainInvokeEvent,
+				key: K,
+				value: configTypes.Schema[K]
+			): Promise<void> => {
+				return ConfigRepository.save<K>(key, value);
 			}
 		}
 	];
