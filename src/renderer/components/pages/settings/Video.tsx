@@ -1,41 +1,83 @@
 import * as React from "react";
-import { Divider, List } from "@material-ui/core";
+import { List, DialogActions } from "@material-ui/core";
+
+import * as channels from "common/channels";
+import * as configTypes from "common/types/config";
+
+import * as Config from "renderer/contexts/Config";
 
 import DirectorySelectItem from "renderer/components/organisms/settings/DirectorySelectItem";
-
 import SettingContents from "renderer/components/organisms/settings/SettingContents";
 
 type ComponentProps = {
-	FFmpegPath: string;
+	newVideoConfig: configTypes.Video;
+	videoConfig: configTypes.Video;
+	onApplyButtonClicked: React.MouseEventHandler<HTMLButtonElement>;
 	setFFmpegPath: (path: string) => void;
 };
 
 const Component: React.FunctionComponent<ComponentProps> = (
 	props: ComponentProps
 ) => {
-	const { FFmpegPath, setFFmpegPath } = props;
+	const {
+		newVideoConfig,
+		videoConfig,
+		onApplyButtonClicked,
+		setFFmpegPath
+	} = props;
 
 	return (
-		<SettingContents title="Video">
+		<SettingContents
+			title="Video"
+			value={newVideoConfig}
+			oldValue={videoConfig}
+			onApplyButtonClicked={onApplyButtonClicked}
+		>
 			<List>
 				<DirectorySelectItem
 					label="FFmpeg"
 					dialogOptions={{ properties: ["openFile"] }}
-					path={FFmpegPath}
+					path={newVideoConfig.FFmpegPath}
 					setPath={setFFmpegPath}
 				/>
-				<Divider />
 			</List>
 		</SettingContents>
 	);
 };
 
-type Props = {};
+type Props = {
+	videoConfig: configTypes.Video;
+	dispatch: React.Dispatch<Config.Action<"video">>;
+};
 
 const Video: React.FunctionComponent<Props> = (props: Props) => {
-	const [FFmpegPath, setFFmpegPath] = React.useState(" ");
+	const { videoConfig, dispatch } = props;
 
-	return <Component FFmpegPath={FFmpegPath} setFFmpegPath={setFFmpegPath} />;
+	const [newVideoConfig, setNewVideoConfig] = React.useState(videoConfig);
+
+	const onApplyButtonClicked: React.MouseEventHandler<HTMLButtonElement> = () => {
+		dispatch({
+			type: channels.updateConfig,
+			key: "video",
+			value: newVideoConfig
+		});
+	};
+
+	const setFFmpegPath = (path: string): void => {
+		setNewVideoConfig({
+			...newVideoConfig,
+			FFmpegPath: path
+		});
+	};
+
+	return (
+		<Component
+			newVideoConfig={newVideoConfig}
+			videoConfig={videoConfig}
+			onApplyButtonClicked={onApplyButtonClicked}
+			setFFmpegPath={setFFmpegPath}
+		/>
+	);
 };
 
 export default Video;
