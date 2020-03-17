@@ -32,4 +32,5 @@ type ContextBridgeApi = Readonly<{
 	config: ConfigContextBridgeApi;
 }>;
 
+// eslint-disable-next-line no-undef
 export default ContextBridgeApi;
