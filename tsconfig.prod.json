@@ -5,7 +5,8 @@
 		"moduleResolution": "node",
 		"lib": ["dom", "es2019"],
 		"jsx": "react",
-		"baseUrl": "./src"
+		"baseUrl": "./src",
+		"esModuleInterop": true
 	},
 	"include": [
 		"src/**/*.ts",
