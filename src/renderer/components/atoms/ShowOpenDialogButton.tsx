@@ -12,8 +12,10 @@ type Props = {
 const ShowOpenDialogButton: React.FunctionComponent<Props> = (props: Props) => {
 	const { options, onClick, children } = props;
 
-	const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = async event => {
-		onClick(await window.dialog.showOpenDialog(options));
+	const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+		(async (): Promise<void> => {
+			onClick(await window.dialog.showOpenDialog(options));
+		})();
 	};
 
 	return (
