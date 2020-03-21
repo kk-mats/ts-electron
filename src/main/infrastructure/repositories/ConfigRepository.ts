@@ -14,14 +14,24 @@ class ConfigRepository {
 	}
 
 	private async readConfig(): Promise<void> {
-		return new Promise(() => {
-			this.cache = store.get(this.key);
+		return new Promise((resolve, reject) => {
+			try {
+				this.cache = store.get(this.key);
+				resolve();
+			} catch (err) {
+				reject(err);
+			}
 		});
 	}
 
 	private async writeConfig(): Promise<void> {
-		return new Promise(() => {
-			store.set(this.key, this.cache);
+		return new Promise((resolve, reject) => {
+			try {
+				store.set(this.key, this.cache);
+				resolve();
+			} catch (err) {
+				reject(err);
+			}
 		});
 	}
 
