@@ -4,7 +4,10 @@ import * as Electron from "electron";
 import * as channels from "common/channels";
 import * as configTypes from "common/types/config";
 
+import CoreServer from "main/application/core-server";
 import ConfigRepository from "main/infrastructure/repositories/ConfigRepository";
+
+const server = new CoreServer();
 
 const createWindow = (): void => {
 	const win = new Electron.BrowserWindow({
@@ -56,7 +59,8 @@ const createWindow = (): void => {
 				key: K,
 				value: configTypes.Schema[K]
 			): Promise<void> => {
-				return ConfigRepository.save<K>(key, value);
+				await ConfigRepository.save<K>(key, value);
+				await server.restart();
 			}
 		}
 	];
@@ -67,3 +71,7 @@ const createWindow = (): void => {
 };
 
 Electron.app.on("ready", createWindow);
+
+(async (): Promise<void> => {
+	await server.start();
+})();
