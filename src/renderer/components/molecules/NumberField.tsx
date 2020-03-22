@@ -15,7 +15,7 @@ type Props = {
 const NumberField: React.FunctionComponent<Props> = (props: Props) => {
 	const { label, value, setValue } = props;
 
-	const onChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+	const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
 		setValue(Number(event.target.value));
 	};
 

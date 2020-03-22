@@ -65,7 +65,7 @@ const createWindow = (): void => {
 		}
 	];
 
-	handlers.map(handler => {
+	handlers.map((handler) => {
 		return Electron.ipcMain.handle(handler.channel, handler.listener);
 	});
 };

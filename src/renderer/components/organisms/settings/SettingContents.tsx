@@ -50,7 +50,9 @@ const SettingItemsWithTitle: React.FunctionComponent<Props> = (
 		applyButtonChildren: undefined
 	});
 
-	const onApplyClicked: React.MouseEventHandler<HTMLButtonElement> = event => {
+	const onApplyClicked: React.MouseEventHandler<HTMLButtonElement> = (
+		event
+	) => {
 		setOnProgress({
 			value: true,
 			applyButtonChildren: "Restarting server..."

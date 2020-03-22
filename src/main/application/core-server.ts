@@ -15,17 +15,17 @@ class CoreServer {
 		return new Promise((resolve, reject) => {
 			this.server = this.app
 				.listen(ConfigRepository.load("general").port, () => resolve())
-				.on("error", err => {
+				.on("error", (err) => {
 					reject(err);
 				})
-				.on("connection", socket => {
+				.on("connection", (socket) => {
 					socket.on("close", () => {
 						this.sockets.delete(socket);
 					});
 					this.sockets.add(socket);
 				})
 				.on("close", () => {
-					this.sockets.forEach(socket => {
+					this.sockets.forEach((socket) => {
 						socket.destroy();
 					});
 
@@ -37,7 +37,7 @@ class CoreServer {
 	public async close(): Promise<void> {
 		return new Promise((resolve, reject) => {
 			if (this.server) {
-				this.server.close(err => reject(err));
+				this.server.close((err) => reject(err));
 				this.server = undefined;
 				resolve();
 			}
