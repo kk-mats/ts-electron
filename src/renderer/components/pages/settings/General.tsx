@@ -6,6 +6,7 @@ import * as configTypes from "common/types/config";
 
 import * as Config from "renderer/contexts/Config";
 
+import NumberField from "renderer/components/molecules/NumberField";
 import DirectorySelectItem from "renderer/components/organisms/settings/DirectorySelectItem";
 import SettingContents from "renderer/components/organisms/settings/SettingContents";
 
@@ -15,6 +16,7 @@ type ComponentProps = {
 	onApplyButtonClicked: React.MouseEventHandler<HTMLButtonElement>;
 	setSharedDirectoryPath: (path: string) => void;
 	setCacheDirectoryPath: (path: string) => void;
+	setPort: (port: number) => void;
 };
 
 const Component: React.FunctionComponent<ComponentProps> = (
@@ -25,7 +27,8 @@ const Component: React.FunctionComponent<ComponentProps> = (
 		generalConfig,
 		onApplyButtonClicked,
 		setSharedDirectoryPath,
-		setCacheDirectoryPath
+		setCacheDirectoryPath,
+		setPort
 	} = props;
 
 	return (
@@ -48,6 +51,12 @@ const Component: React.FunctionComponent<ComponentProps> = (
 					dialogOptions={{ properties: ["openDirectory"] }}
 					path={newGeneralConfig.cacheDirectoryPath}
 					setPath={setCacheDirectoryPath}
+				/>
+				<Divider />
+				<NumberField
+					label="Server port"
+					value={newGeneralConfig.port}
+					setValue={setPort}
 				/>
 			</List>
 		</SettingContents>
@@ -88,6 +97,13 @@ const General: React.FunctionComponent<Props> = (props: Props) => {
 		});
 	};
 
+	const setPort = (port: number): void => {
+		setNewGeneralConfig({
+			...newGeneralConfig,
+			port
+		});
+	};
+
 	return (
 		<Component
 			newGeneralConfig={newGeneralConfig}
@@ -95,6 +111,7 @@ const General: React.FunctionComponent<Props> = (props: Props) => {
 			onApplyButtonClicked={onApplyButtonClicked}
 			setSharedDirectoryPath={setSharedDirectoryPath}
 			setCacheDirectoryPath={setCacheDirectoryPath}
+			setPort={setPort}
 		/>
 	);
 };

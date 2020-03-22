@@ -42,7 +42,8 @@ export const reducer = <K extends configTypes.SchemaKeys>(
 const initialState: configTypes.Schema = {
 	general: {
 		sharedDirectoryPath: "",
-		cacheDirectoryPath: ""
+		cacheDirectoryPath: "",
+		port: 0
 	},
 	video: {
 		FFmpegPath: ""
