@@ -20,7 +20,7 @@ const createWindow = (): void => {
 		}
 	});
 
-	win.loadFile(path.resolve("dist", "index.html"));
+	win.loadFile(path.resolve("dist", "renderer.html"));
 
 	const handlers: {
 		channel: string;
