@@ -1,7 +1,7 @@
 import express from "express";
 
 import middlewares from "main/application/middlewares";
-import entry from "main/application/routes/entry";
+import entries from "main/application/routes/entries";
 
 import ConfigRepository from "main/infrastructure/repositories/ConfigRepository";
 
@@ -15,10 +15,10 @@ app.use(
 );
 
 app.use(
-	"/shared",
+	"/static",
 	express.static(ConfigRepository.load("general").sharedDirectoryPath)
 );
 
-app.use("/entry", entry);
+app.use("/entries", entries);
 
 export default app;
