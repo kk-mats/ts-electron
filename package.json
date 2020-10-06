@@ -6,7 +6,7 @@
 	"author": "kk-mats <k.mats.kk@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"electron": "^8.0.2",
+		"electron": "^8.5.1",
 		"react": "^16.13.0",
 		"react-dom": "^16.13.0"
 	},
